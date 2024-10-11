@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Roulette : MonoBehaviour
 {
+    public event Action<int> OnSpinEnd;
     private RouletteSpinner _rouletteSpinner;
     private int _winningNumber = 0;
 
@@ -20,12 +22,7 @@ public class Roulette : MonoBehaviour
 
     private void _rouletteSpinner_OnSpinEnd()
     {
-        PublishResults();
-    }
-
-    private void PublishResults()
-    {
-
+        OnSpinEnd?.Invoke(_winningNumber);
     }
 
     public void Spin()
