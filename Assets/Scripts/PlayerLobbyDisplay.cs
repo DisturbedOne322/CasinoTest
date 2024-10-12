@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerLobbyDisplay : MonoBehaviour
+public class PlayerLobbyDisplayInfo : MonoBehaviour
 {
     [SerializeField]
     private Image _playerAvatarImage;

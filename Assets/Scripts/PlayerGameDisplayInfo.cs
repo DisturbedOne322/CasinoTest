@@ -2,9 +2,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerDisplayInfo : MonoBehaviour
+public class PlayerGameDisplayInfo : MonoBehaviour
 {
     private Player _player;
+    public Player Player => _player;
     [SerializeField]
     private Image _playerAvatarImage;
     [SerializeField]

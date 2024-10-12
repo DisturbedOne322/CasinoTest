@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LobbyDisplay : MonoBehaviour
+public class MainMenuLobbyDisplay : MonoBehaviour
 {
     [SerializeField]
     private Transform _displayPlayersParent;
     [SerializeField]
     private GameObject _playerDataDisplayPrefab;
 
-    private List<PlayerLobbyDisplay> _playerDisplayObjectList = new();
+    private List<PlayerLobbyDisplayInfo> _playerDisplayObjectList = new();
 
     // Start is called before the first frame update
     void Start()
@@ -25,10 +25,9 @@ public class LobbyDisplay : MonoBehaviour
 
     private void Instance_OnPlayerConnected(Player player)
     {
-
         var playerDisplayGO = Instantiate(_playerDataDisplayPrefab);
 
-        var playerDisplayData = playerDisplayGO.GetComponent<PlayerLobbyDisplay>();
+        var playerDisplayData = playerDisplayGO.GetComponent<PlayerLobbyDisplayInfo>();
         playerDisplayData.Initialize(player);
         playerDisplayData.transform.SetParent(transform, false);
 
