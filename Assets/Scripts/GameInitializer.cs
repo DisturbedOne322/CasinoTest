@@ -8,7 +8,7 @@ public class GameInitializer
     {
         List<Player> players = new List<Player>();
         for (int i = 0; i < amount; i++)
-            players.Add(new Player(GenerateRandomName(), 1000));
+            players.Add(new Player(GenerateRandomName(), 1000, null));
 
         return players;
     }
