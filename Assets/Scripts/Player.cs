@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Player
 {
+    public event Action<int> OnBalanceChanged;
+
     private Sprite _avatarSprite;
     public Sprite AvatarSprite => _avatarSprite;
 
@@ -30,9 +33,18 @@ public class Player
 
         if(_balance.GetBalance() <= 0)
             _inGame = false;
+
+        OnBalanceChanged?.Invoke(Balance);    
     }
 
-    public void AddAmount(int amount) => _balance.AddAmount(amount);
+    public void AddAmount(int amount)
+    {
+        //in the player bet all the money and won, update the value to still be in the game
+        _inGame = true;
+
+        _balance.AddAmount(amount);
+        OnBalanceChanged?.Invoke(Balance);
+    }
     public bool CanPlaceBet(int amount) => Balance >= amount;
 
     private class PlayerBalance
@@ -40,7 +52,7 @@ public class Player
         private int _currentBalance = 0;
 
         public void SetBalance(int balance) => _currentBalance = balance;
-        public void AddAmount(int amount) => _currentBalance = amount;
+        public void AddAmount(int amount) => _currentBalance += amount;
         public void RemoveAmount(int amount) => _currentBalance -= amount;
         public int GetBalance() => _currentBalance;
     }

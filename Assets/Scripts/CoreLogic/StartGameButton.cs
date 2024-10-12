@@ -38,5 +38,7 @@ public class StartGameButton : MonoBehaviour
         {
             yield return null;
         }
+
+        _loadingScene = false;
     }
 }

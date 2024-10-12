@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df3b8eb5ad97c534c87e7bbdcf7ebc33, type: 3}
   m_Name: GameSettingsSO
   m_EditorClassIdentifier: 
+  _minPlayers: 1
   _maxPlayers: 5
   _defaultBalance: 1000
   _minBet: 25
-  _maxBet: 1000
+  _maxBet: 500
+  _payoutMultiplier: 2

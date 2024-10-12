@@ -29,7 +29,7 @@ public class Lobby : MonoBehaviour
             DontDestroyOnLoad(this);
         }
         else if (_instance != this)
-            Destroy(gameObject);
+            Destroy(this);
     }
 
     public bool IsLobbyFull() => _playersInLobby.Count >= _gameSettings.MaxPlayers;

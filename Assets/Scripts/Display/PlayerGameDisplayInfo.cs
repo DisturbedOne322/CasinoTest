@@ -21,9 +21,16 @@ public class PlayerGameDisplayInfo : MonoBehaviour
         _playerBalance.text = player.Balance.ToString();
 
         _playerAvatarImage.sprite = player.AvatarSprite;
+
+        _player.OnBalanceChanged += Player_OnBalanceChanged;
     }
 
-    public void UpdateBalance(int newBalance)
+    private void OnDestroy()
+    {
+        _player.OnBalanceChanged -= Player_OnBalanceChanged;    
+    }
+
+    private void Player_OnBalanceChanged(int newBalance)
     {
         _playerBalance.text = newBalance.ToString();
     }
