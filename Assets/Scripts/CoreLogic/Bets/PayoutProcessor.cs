@@ -14,16 +14,15 @@ public class PayoutProcessor
     {
         (int totalBetOnWinningNumber, int totalBetsLost) = CalculateWinAndLostBetsSum(finalBets, winningNumber);
 
-        //casino winning condition
-        if (totalBetOnWinningNumber == 0)
+
+        yield return ProcessAllPlayersPayouts(finalBets, totalBetOnWinningNumber, totalBetsLost, winningNumber);
+        
+
+        if(totalBetOnWinningNumber == 0)
         {
             string message = "- Casino won in total " + totalBetsLost;
             OnBetProcessed?.Invoke(message);
             yield return GameManager.Instance.StartCoroutine(RunTimer());
-        }
-        else
-        {
-            yield return ProcessAllPlayersPayouts(finalBets, totalBetOnWinningNumber, totalBetsLost, winningNumber);
         }
 
         OnProcessingFinished?.Invoke();
