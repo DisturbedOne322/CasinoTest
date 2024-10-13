@@ -23,8 +23,7 @@ public class GameplayLobbyDisplay : MonoBehaviour
         Lobby.Instance.OnPlayerDisconnected -= Instance_OnPlayerDisconnected;
     }
 
-    //purely for code reusability. This allows us to use the this component in multiplie scenes,
-    //even after loading a new scene (as the events for each invividual player won't be fired)
+    //after the game loads, instantiate all the players in the lobby.
     private void InstantiatePlayers()
     {
         var playersInLobby = Lobby.Instance.PlayersInLobby;

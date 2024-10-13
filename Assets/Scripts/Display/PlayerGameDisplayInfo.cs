@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+//used to populate the instance of the player data during gameplay
 public class PlayerGameDisplayInfo : MonoBehaviour
 {
     private Player _player;

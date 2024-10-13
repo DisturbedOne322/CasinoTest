@@ -1,13 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Roulette : MonoBehaviour
 {
     public event Action<int> OnSpinEnd;
     private RouletteSpinner _rouletteSpinner;
-    [SerializeField]
+
     private int _winningNumber = 0;
 
     private void Start()
@@ -28,7 +26,7 @@ public class Roulette : MonoBehaviour
 
     public void Spin()
     {
-        //_winningNumber = UnityEngine.Random.Range(0, 10);
+        _winningNumber = UnityEngine.Random.Range(0, 10);
         _rouletteSpinner.SpinToNumber(_winningNumber);
     }
 }

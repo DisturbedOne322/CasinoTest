@@ -9,7 +9,6 @@ public class RoundManager
     public event Action<Player> OnPlayerTurnChanged;
     public event Action OnTurnsEnded;
 
-    private BetsManager _betsManager;
     private List<Player> _players;
 
     private Player _currentPlayer;
@@ -18,13 +17,12 @@ public class RoundManager
     private bool _activeTurn = false;
     private const float SKIP_TURN_DISPLAY_TIME_TOTAL = 2.5f;
 
-    public RoundManager(Button endTurnButton, BetsManager betsManager)
+    public RoundManager(Button endTurnButton)
     {
-        _betsManager = betsManager;
         endTurnButton.onClick.AddListener(() => EndTurn());
     }
 
-    public void StartRound(List<Player> players)
+    public void StartNewRound(List<Player> players)
     {
         _players = players;
         GameManager.Instance.StartCoroutine(ProcessAllPlayers());

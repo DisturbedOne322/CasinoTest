@@ -21,16 +21,13 @@ public class GameSettingsSO : ScriptableObject
     private int _minBet = 25;
     public int MinBet => _minBet;
 
-    [SerializeField, Min(2)]
+    [SerializeField]
     private int _maxBet = 1000;
     public int MaxBet => _maxBet;
 
-    [SerializeField, Min(1)]
-    private float _payoutMultiplier = 1;
-    public float PayoutMultiplier => _payoutMultiplier;
-
     private void OnValidate()
     {
-        _maxPlayers = Mathf.Max(_minPlayers + 1, _maxPlayers);
+        _maxPlayers = Mathf.Max(_minPlayers, _maxPlayers);
+        _maxBet = Mathf.Max(_maxBet, _minBet + 1);
     }
 }

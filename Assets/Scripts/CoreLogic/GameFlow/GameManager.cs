@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+//manages some dependencies and controls the flow of the game
 [RequireComponent(typeof(GameBoard))]
 public class GameManager : MonoBehaviour
 {
@@ -18,8 +19,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameProgressDisplay _progressDisplay;
 
-    [SerializeField]
-    private GameSettingsSO _gameSettings;
     [SerializeField]
     private Button _endTurnButton;
 
@@ -43,7 +42,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         _betsManager = new ();
-        _roundManager = new(_endTurnButton, _betsManager);
+        _roundManager = new(_endTurnButton);
         _payoutProcessor = new();
 
         _board.Initialize(_betsManager);
@@ -76,13 +75,13 @@ public class GameManager : MonoBehaviour
 
     private void OnSpinEnd(int winningNumber)
     {
-        StartCoroutine(_payoutProcessor.ProcessPayouts(winningNumber, _betsManager.GetFinalBets(), _gameSettings.PayoutMultiplier));
+        StartCoroutine(_payoutProcessor.ProcessPayouts(_betsManager.GetFinalBets(), winningNumber));
     }
 
     private void StartRound()
     {
         _isBettingPhase = true;
         _betsManager.StartNewRound();
-        _roundManager.StartRound(Lobby.Instance.PlayersInLobby);
+        _roundManager.StartNewRound(Lobby.Instance.PlayersInLobby);
     }
 }

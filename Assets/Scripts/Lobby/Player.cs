@@ -39,7 +39,7 @@ public class Player
 
     public void AddAmount(int amount)
     {
-        //in the player bet all the money and won, update the value to still be in the game
+        //if the player bet all the money and won, update the value to still be in the game
         _inGame = true;
 
         _balance.AddAmount(amount);
