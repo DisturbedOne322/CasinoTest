@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         _betsManager = new ();
         _roundManager = new(_endTurnButton);
-        _payoutProcessor = new();
+        _payoutProcessor = new(this);
 
         _board.Initialize(_betsManager);
         _progressDisplay.Initialize(_roundManager, _payoutProcessor);

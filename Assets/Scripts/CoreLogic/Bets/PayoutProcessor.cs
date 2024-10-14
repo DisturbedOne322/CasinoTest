@@ -8,7 +8,19 @@ public class PayoutProcessor
     public event Action<string> OnBetProcessed;
     public event Action OnProcessingFinished;
 
+    //for unit testing
+#if UNITY_EDITOR
+    private const float MESSAGE_DISPLAY_TIME_TOTAL = 0f;
+#else
     private const float MESSAGE_DISPLAY_TIME_TOTAL = 3f;
+#endif
+
+    private MonoBehaviour _mono;
+
+    public PayoutProcessor(MonoBehaviour mono)
+    {
+        _mono = mono;
+    }
 
     public IEnumerator ProcessPayouts(Dictionary<Player, List<Bet>> finalBets, int winningNumber)
     {
@@ -22,7 +34,7 @@ public class PayoutProcessor
         {
             string message = "- Casino won in total " + totalBetsLost;
             OnBetProcessed?.Invoke(message);
-            yield return GameManager.Instance.StartCoroutine(RunTimer());
+            yield return _mono.StartCoroutine(RunTimer());
         }
 
         OnProcessingFinished?.Invoke();
@@ -33,8 +45,9 @@ public class PayoutProcessor
     {
         foreach (var kv in finalBets)
         {
-            OnBetProcessed?.Invoke(ProcessPlayerBets(kv.Key, kv.Value, totalBetOnWinningNumber, totalBetsLost, winningNumber));
-            yield return GameManager.Instance.StartCoroutine(RunTimer());
+            string message = ProcessPlayerBets(kv.Key, kv.Value, totalBetOnWinningNumber, totalBetsLost, winningNumber);
+            OnBetProcessed?.Invoke(message);
+            yield return _mono.StartCoroutine(RunTimer());
         }
     }
 
@@ -85,6 +98,6 @@ public class PayoutProcessor
         return (totalWin, totalLost);
     }
 
-    private float CalculateSharePercent(int playerBet, int totalBet) => playerBet * 1f / totalBet;
-    private int CalculatePlayerPayout(int playerBet, float share, int totalBetsLost) => Mathf.FloorToInt(playerBet + share * totalBetsLost);
+    public float CalculateSharePercent(int playerBet, int totalBet) => playerBet * 1f / totalBet;
+    public int CalculatePlayerPayout(int playerBet, float share, int totalBetsLost) => Mathf.FloorToInt(playerBet + share * totalBetsLost);
 }
